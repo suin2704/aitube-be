@@ -213,7 +213,7 @@ async function main() {
         thumbnailUrl: `https://picsum.photos/seed/aitube${i + 1}/480/270`,
         duration: v.dur,
         viewCount: v.views,
-        publishedAt: new Date(2025, 3, 25 - i * 2),
+        publishedAt: new Date(2026, 3, 26 - i * 2),
         language: v.lang,
         difficulty: v.diff,
         isFeatured: v.featured,
