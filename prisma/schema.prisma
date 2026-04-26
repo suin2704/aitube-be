@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  slug        String   @unique @db.VarChar(50)
+  description String?  @db.Text
+  icon        String   @db.VarChar(10)
+  color       String   @db.VarChar(20)
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  videos   Video[]
+  channels Channel[]
+
+  @@map("categories")
+}
+
+model Channel {
+  id                Int       @id @default(autoincrement())
+  youtubeId         String    @unique @map("youtube_id") @db.VarChar(50)
+  name              String    @db.VarChar(200)
+  description       String?   @db.Text
+  thumbnailUrl      String?   @map("thumbnail_url") @db.VarChar(500)
+  subscriberCount   Int       @default(0) @map("subscriber_count")
+  defaultCategoryId Int?      @map("default_category_id")
+  language          String    @default("ko") @db.VarChar(5)
+  isActive          Boolean   @default(true) @map("is_active")
+  lastFetchedAt     DateTime? @map("last_fetched_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  defaultCategory Category? @relation(fields: [defaultCategoryId], references: [id])
+  videos          Video[]
+
+  @@map("channels")
+}
+
+model Video {
+  id           Int      @id @default(autoincrement())
+  youtubeId    String   @unique @map("youtube_id") @db.VarChar(20)
+  channelId    Int      @map("channel_id")
+  categoryId   Int      @map("category_id")
+  title        String   @db.VarChar(500)
+  description  String?  @db.Text
+  thumbnailUrl String   @map("thumbnail_url") @db.VarChar(500)
+  duration     Int      @default(0)
+  viewCount    Int      @default(0) @map("view_count")
+  likeCount    Int      @default(0) @map("like_count")
+  publishedAt  DateTime @map("published_at")
+  language     String   @default("ko") @db.VarChar(5)
+  difficulty   String   @default("beginner") @db.VarChar(20)
+  tags         String[] @default([])
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  channel  Channel       @relation(fields: [channelId], references: [id])
+  category Category      @relation(fields: [categoryId], references: [id])
+  summary  VideoSummary?
+
+  @@index([categoryId])
+  @@index([publishedAt])
+  @@index([isFeatured])
+  @@map("videos")
+}
+
+model VideoSummary {
+  id            Int      @id @default(autoincrement())
+  videoId       Int      @unique @map("video_id")
+  summary       String   @db.Text
+  keyPoints     String[] @map("key_points")
+  keywords      String[] @default([])
+  difficulty    String?  @db.VarChar(20)
+  estimatedTime Int?     @map("estimated_time")
+  aiCategory    String?  @map("ai_category") @db.VarChar(50)
+  modelUsed     String?  @map("model_used") @db.VarChar(50)
+  status        String   @default("completed") @db.VarChar(20)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  video Video @relation(fields: [videoId], references: [id])
+
+  @@map("video_summaries")
+}
