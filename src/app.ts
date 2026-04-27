@@ -6,6 +6,7 @@ import healthRouter from "./routes/health";
 import videosRouter from "./routes/videos";
 import categoriesRouter from "./routes/categories";
 import searchRouter from "./routes/search";
+import crawlRouter from "./routes/crawl";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/videos", videosRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/search", searchRouter);
+app.use("/api/v1/crawl", crawlRouter);
 
 // Error handling
 app.use(errorHandler);
