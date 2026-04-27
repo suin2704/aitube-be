@@ -7,6 +7,10 @@ import videosRouter from "./routes/videos";
 import categoriesRouter from "./routes/categories";
 import searchRouter from "./routes/search";
 import crawlRouter from "./routes/crawl";
+import adminAuthRouter from "./routes/admin/auth";
+import adminDashboardRouter from "./routes/admin/dashboard";
+import adminVideosRouter from "./routes/admin/videos";
+import adminChannelsRouter from "./routes/admin/channels";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -25,7 +29,8 @@ if (process.env.CORS_ORIGIN) {
 app.use(
   cors({
     origin: allowedOrigins,
-    methods: ["GET"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-cron-secret"],
   })
 );
 
@@ -48,6 +53,12 @@ app.use("/api/v1/videos", videosRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/search", searchRouter);
 app.use("/api/v1/crawl", crawlRouter);
+
+// Admin routes
+app.use("/api/v1/admin", adminAuthRouter);
+app.use("/api/v1/admin/dashboard", adminDashboardRouter);
+app.use("/api/v1/admin/videos", adminVideosRouter);
+app.use("/api/v1/admin/channels", adminChannelsRouter);
 
 // Error handling
 app.use(errorHandler);
