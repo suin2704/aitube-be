@@ -16,17 +16,17 @@ const prisma = new PrismaClient({ adapter });
 // 수집할 채널 목록 (채널ID, 기본 카테고리, 난이도)
 const TARGET_CHANNELS = [
   // 🔥 AI 트렌드
-  { youtubeId: "UCUehqvOOaI7cL4Ccoqg0k3Q", slug: "ai-trend", difficulty: "beginner", lang: "ko" },   // 노마드 코더
-  { youtubeId: "UCUpJs89fSBXNolQGOYKn0YQ", slug: "ai-trend", difficulty: "beginner", lang: "ko" },   // 안될공학
+  { youtubeId: "UCUpJs89fSBXNolQGOYKn0YQ", slug: "ai-trend", difficulty: "beginner", lang: "ko" },     // 노마드 코더 Nomad Coders
   { youtubeId: "UC9PB9nKYqKEx_N3KM-JVTpg", slug: "ai-trend", difficulty: "intermediate", lang: "en" }, // Two Minute Papers
+  { youtubeId: "UCNhGqMWDRnIKMb3OGBQdsIA", slug: "ai-trend", difficulty: "beginner", lang: "ko" },     // 빵형의 개발도상국
   // 🔧 AI 활용
-  { youtubeId: "UCmyxyV6hON0n5OMG5oFUfZQ", slug: "ai-usage", difficulty: "beginner", lang: "ko" },   // 조코딩
+  { youtubeId: "UCsBjURrPoezykLs9EqgamOA", slug: "ai-usage", difficulty: "intermediate", lang: "en" }, // Fireship
+  { youtubeId: "UCVyRiMvfUNMA1UPlDPzG5Ow", slug: "ai-usage", difficulty: "intermediate", lang: "en" }, // DesignCourse
   { youtubeId: "UCFbNIlppjAuEX4znoulh0Cw", slug: "ai-usage", difficulty: "intermediate", lang: "en" }, // Web Dev Simplified
-  { youtubeId: "UCLkAepWjdylmXSltofFvsYQ", slug: "ai-usage", difficulty: "intermediate", lang: "en" }, // CNET
   // 📚 AI 학습
-  { youtubeId: "UCWN3xxRkmTPphYnPVCprXKw", slug: "ai-learning", difficulty: "intermediate", lang: "ko" }, // 테디노트
   { youtubeId: "UCYO_jab_esuFRV4b17AJtAw", slug: "ai-learning", difficulty: "beginner", lang: "en" },    // 3Blue1Brown
-  { youtubeId: "UCbfYPyITQ-7l4upoX8nvctg", slug: "ai-learning", difficulty: "advanced", lang: "en" },    // Two Minute Papers (alt: Yannic Kilcher)
+  { youtubeId: "UCZHmQk67mSJgfCCTn7xBfew", slug: "ai-learning", difficulty: "advanced", lang: "en" },    // Yannic Kilcher
+  { youtubeId: "UCbfYPyITQ-7l4upoX8nvctg", slug: "ai-learning", difficulty: "advanced", lang: "en" },    // Two Minute Papers (alt channel)
 ];
 
 interface YTSearchItem {
