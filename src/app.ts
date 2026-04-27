@@ -15,6 +15,9 @@ import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
+// Trust proxy (Railway runs behind a reverse proxy)
+app.set("trust proxy", 1);
+
 // Security
 app.use(helmet());
 
