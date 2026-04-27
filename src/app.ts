@@ -5,6 +5,7 @@ import { rateLimit } from "express-rate-limit";
 import healthRouter from "./routes/health";
 import videosRouter from "./routes/videos";
 import categoriesRouter from "./routes/categories";
+import searchRouter from "./routes/search";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -44,6 +45,7 @@ app.use(express.json());
 app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/videos", videosRouter);
 app.use("/api/v1/categories", categoriesRouter);
+app.use("/api/v1/search", searchRouter);
 
 // Error handling
 app.use(errorHandler);
