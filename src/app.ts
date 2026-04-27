@@ -11,9 +11,18 @@ const app = express();
 
 // Security
 app.use(helmet());
+
+const allowedOrigins = [
+  "https://aitube-fe.vercel.app",
+  "http://localhost:3000",
+];
+if (process.env.CORS_ORIGIN) {
+  allowedOrigins.push(process.env.CORS_ORIGIN.replace(/\/$/, ""));
+}
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: allowedOrigins,
     methods: ["GET"],
   })
 );
