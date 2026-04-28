@@ -68,6 +68,7 @@ model Video {
   channel  Channel       @relation(fields: [channelId], references: [id])
   category Category      @relation(fields: [categoryId], references: [id])
   summary  VideoSummary?
+  comments Comment[]
 
   @@index([categoryId])
   @@index([publishedAt])
@@ -92,4 +93,30 @@ model VideoSummary {
   video Video @relation(fields: [videoId], references: [id])
 
   @@map("video_summaries")
+}
+
+model PageView {
+  id        Int      @id @default(autoincrement())
+  page      String   @db.VarChar(500)
+  videoId   Int?     @map("video_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([page])
+  @@map("page_views")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  videoId   Int      @map("video_id")
+  nickname  String   @db.VarChar(50)
+  content   String   @db.Text
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  video Video @relation(fields: [videoId], references: [id])
+
+  @@index([videoId])
+  @@index([createdAt])
+  @@map("comments")
 }

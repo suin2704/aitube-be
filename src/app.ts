@@ -7,10 +7,13 @@ import videosRouter from "./routes/videos";
 import categoriesRouter from "./routes/categories";
 import searchRouter from "./routes/search";
 import crawlRouter from "./routes/crawl";
+import analyticsRouter from "./routes/analytics";
+import commentsRouter from "./routes/comments";
 import adminAuthRouter from "./routes/admin/auth";
 import adminDashboardRouter from "./routes/admin/dashboard";
 import adminVideosRouter from "./routes/admin/videos";
 import adminChannelsRouter from "./routes/admin/channels";
+import adminAnalyticsRouter from "./routes/admin/analytics";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -56,12 +59,15 @@ app.use("/api/v1/videos", videosRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/search", searchRouter);
 app.use("/api/v1/crawl", crawlRouter);
+app.use("/api/v1/analytics", analyticsRouter);
+app.use("/api/v1/videos", commentsRouter);
 
 // Admin routes
 app.use("/api/v1/admin", adminAuthRouter);
 app.use("/api/v1/admin/dashboard", adminDashboardRouter);
 app.use("/api/v1/admin/videos", adminVideosRouter);
 app.use("/api/v1/admin/channels", adminChannelsRouter);
+app.use("/api/v1/admin/analytics", adminAnalyticsRouter);
 
 // Error handling
 app.use(errorHandler);
